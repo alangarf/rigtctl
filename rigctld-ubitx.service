@@ -1,0 +1,16 @@
+[Unit]
+Description=rigctld Hamradio rig controller for ubitx
+After=syslog.target network.target
+StopWhenUnneeded=true
+
+[Install]
+WantedBy=dev-ubitx.device
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/rigctld -m 1020 -r /dev/ubitx -s 38400 -T 127.0.0.1 -t 4533
+ExecReload=/bin/kill -HUP $MAINPID
+RestartSec=60
+Restart=always
+User=rigctld
+Group=rigctld

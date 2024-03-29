@@ -1,0 +1,16 @@
+[Unit]
+Description=rigctld Hamradio rig controller for IC706
+After=syslog.target network.target
+StopWhenUnneeded=true
+
+[Install]
+WantedBy=dev-ic706.device
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/rigctld -m 3011 -r /dev/ic706 -p /dev/ic706 -P DTR -s 9600 -T 127.0.0.1 -vvv
+ExecReload=/bin/kill -HUP $MAINPID
+RestartSec=60
+Restart=always
+User=rigctld
+Group=rigctld
